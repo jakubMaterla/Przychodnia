@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="container">
+        <div>
+            <ul class="nav nav-tabs">
+                <li role="presentation"><a th:href="@{/home}">Home</a></li>
+                <li role="presentation"><a th:href="@{/employees}">Pracownicy</a></li>
+                <li role="presentation" class="active"><a th:href="@{/patients}">Zwierzęta</a></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <td>#</td>
+                <td>Imie</td>
+                <td>Wiek</td>
+                <td>Data urodzenia</td>
+                <td>Waga</td>
+                <td>Rasa</td>
+                <td>Płeć
+                <td>Rozmiar</td>
+                <td>Color oczu</td>
+            </tr>
+            </thead>
+            <tbody th:each="patient, iter: ${patients}">
+            <tr>
+                <td th:text="${iter.index + 1}"></td>
+                <td th:text="${patient.getName()}"></td>
+                <td th:text="${patient.getAge()}"></td>
+                <td th:text="${patient.getBirthDate()}"></td>
+                <td th:text="${patient.getWeight()}"></td>
+                <td th:each="race : ${patient.getRace()}">
+                    <ul>
+                        <li th:text="${race.getName()}"></li>
+                    </ul>
+                </td>
+                <td th:each="sex : ${patient.getSex()}">
+                    <ul>
+                        <li th:text="${sex.getName()}"></li>
+                    </ul>
+                </td>
+                <td th:each="size : ${patient.getSize()}">
+                    <ul>
+                        <li th:text="${size.getName()}"></li>
+                    </ul>
+                </td>
+                <td th:each="color : ${patient.getColor()}">
+                    <ul>
+                        <li th:text="${color.getColor()}"></li>
+                    </ul>
+                </td>
+                <td>
+                    <a th:href="${'/add-patient-medicine/' + patient.getId()}">Dodaj lek</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a href="/new-owners">Dodaj właściciela z psem</a>
+        <br>
+        <a ></a>
+        <br>
+        <a ></a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+</head>
+<body>
+<div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <td>#</td>
+                <td>Nazwa</td>
+            </tr>
+            </thead>
+            <tbody th:each="med, iter: ${medicines}">
+            <tr>
+                <td th:text="${iter.index + 1}"></td>
+                <td th:text="${med.getName()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <div>
+            <form th:action="${'/add-new-med/' + Medicine.getId()}" th:object="${Medicine}" method="post">
+                <div>
+                    <label>Nazwa: </label>
+                    <input type="text" th:field="*{name}">
+                </div>
+                <div>
+                    <button type="submit">Dodaj nowy lek</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Przychodnia</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+</head>
+<body>
+<div class="container">
+    <form th:action="${'/save-patient-medicine/' + patId}" th:object="${Patient}" method='POST'>
+        <div>
+            <table>
+                <tr>
+                    <td>Select medicine:</td>
+                    <td>
+                        <select th:field="*{medicines}">
+                            <option th:each="med: ${medicines}"
+                                    th:value="${med.id}"
+                                    th:utext="${med.name}"/>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <br>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <button type="submit" class="btn btn default">Dodaj lek</button>
+        </div>
+    </form>
+    <br>
+    <br>
+    <div>
+        <a th:href="${'/add-medicine/' + patId}">Utwórz nowy lek</a>
+    </div>
+    <br>
+    <div>
+        <a href="/patients">Wróć</a>
+    </div>
+</div>
+</body>
+</html>
