@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -17,7 +16,7 @@ public class Treatment {
     private String name;
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "animal_id", nullable = false)
-    private Animal animal;
+/*    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;*/
 }

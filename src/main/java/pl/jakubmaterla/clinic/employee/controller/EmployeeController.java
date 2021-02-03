@@ -34,21 +34,21 @@ public class EmployeeController {
     String readAll(Model model) {
         List<Employee> employees = service.readAll();
         model.addAttribute("employees", employees);
-        return "employee";
+        return "employee/employee";
     }
 
     @RequestMapping(value = "/employee/{id}", produces = MediaType.TEXT_HTML_VALUE, method = RequestMethod.POST)
     String readEmployeeById(@PathVariable int id, Model model){
         Optional<Employee> empl = service.findById(id);
         model.addAttribute("employee", empl);
-        return "employee";
+        return "employee/employee";
     }
 
     @RequestMapping (value = "/groups", produces = MediaType.TEXT_HTML_VALUE, method = RequestMethod.GET)
     String readAllGroups(Model model) {
         List<Group> groups = groupService.findAll();
         model.addAttribute("groups", groups);
-        return "employee";
+        return "employee/employee";
     }
 
     @RequestMapping(value = "/group", produces = MediaType.TEXT_HTML_VALUE, method = RequestMethod.GET)
@@ -56,12 +56,12 @@ public class EmployeeController {
         List<Group> groups = groupService.findAll();
         model.addAttribute("groups", groups);
         model.addAttribute("Group", new Group());
-        return "newGroup";
+        return "employee/newGroup";
     }
     @RequestMapping(value = "/employees", produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, method = RequestMethod.POST)
     public String saveNewGroup(@Valid Group group, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "newGroup";
+            return "employee/newGroup";
         }
         else {
             groupService.save(group);
@@ -74,13 +74,13 @@ public class EmployeeController {
         List<Position> positionList = positionService.findAll();
         model.addAttribute("positions", positionList);
         model.addAttribute("Position", new Position());
-        return "newPosition";
+        return "employee/newPosition";
     }
 
     @RequestMapping(value = "/save-position", produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, method = RequestMethod.POST)
     public String saveNewPosition(@Valid Position position, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "newPosition";
+            return "employee/newPosition";
         }
         else {
             positionService.save(position);
@@ -95,13 +95,13 @@ public class EmployeeController {
         model.addAttribute("groups", groups);
         List<Position> positionList = positionService.findAll();
         model.addAttribute("positions", positionList);
-        return "newEmployee";
+        return "employee/newEmployee";
     }
 
     @RequestMapping(value = "/save-employee", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveNewEmployee(@Valid Employee employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "newEmployee";
+            return "employee/newEmployee";
         }
         else {
             service.save(employee);

@@ -16,6 +16,9 @@
                 <li role="presentation"><a th:href="@{/home}">Home</a></li>
                 <li role="presentation"><a th:href="@{/employees}">Pracownicy</a></li>
                 <li role="presentation" class="active"><a th:href="@{/patients}">Zwierzęta</a></li>
+                <li role="presentation"><a th:href="@{/owners}">Właściciele</a></li>
+                <li role="presentation"><a th:href="@{/medicines}">Lekarstwa</a></li>
+                <li role="presentation"><a th:href="@{/treatments}">Zabiegi</a></li>
             </ul>
         </div>
     </div>
@@ -61,15 +64,15 @@
                         <li th:text="${color.getColor()}"></li>
                     </ul>
                 </td>
-                <td>
-                    <a th:href="${'/add-patient-medicine/' + patient.getId()}">Dodaj lek</a>
-                </td>
+                <!--<td>-->
+                <!--    <a th:href="${'/add-patient-med/' + patient.getId()}">Dodaj lek</a>-->
+                <!--</td>-->
             </tr>
             </tbody>
         </table>
     </div>
     <div>
-        <a href="/new-owners">Dodaj właściciela z psem</a>
+        <a href="/new-patient">Dodaj pacjenta</a>
         <br>
         <a ></a>
         <br>

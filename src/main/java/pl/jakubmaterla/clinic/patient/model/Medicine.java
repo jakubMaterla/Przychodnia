@@ -18,7 +18,7 @@ public class Medicine {
     private String name;
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "animal_id")
-    private Animal animal;
+  /*  @OneToOne
+    @JoinColumn(name = "medicine_id")
+    private Patient patient;*/
 }

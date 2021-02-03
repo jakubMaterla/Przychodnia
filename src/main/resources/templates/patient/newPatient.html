@@ -13,7 +13,7 @@
 <br>
 <div class="container">
     <h2>Utworz nowego zwierzaka</h2>
-    <form th:action="@{/save-patient}" th:object="${Patient}" method='POST'>
+    <form th:action="${'/save-patient'}" th:object="${Patient}" method='POST'>
         <div class="form-group">
             <label class="control-label">imie: </label>
             <input type="text" class="from-control" th:field="*{name}"/>
@@ -59,8 +59,6 @@
                     </td>
                 </tr>
             </table>
-            <br>
-            <br>
             <table>
                 <tr>
                     <td>Select race:</td>
@@ -87,11 +85,7 @@
                     </td>
                 </tr>
             </table>
-            <br>
-            <br>
-
         </div>
-        <br>
         <br>
         <div class="row">
             <button type="submit" class="btn btn default">Utwórz nowego zwierzaka</button>

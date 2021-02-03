@@ -17,7 +17,7 @@ public class Owner {
     private String name;
     private String surname;
     private int age;
-    @OneToMany
-    @JoinColumn(name = "animal_id")
-    private List<Animal> animals;
+    /*@OneToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;*/
 }

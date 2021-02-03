@@ -8,11 +8,11 @@ public class ClinicController {
 
     @GetMapping("/home")
     String home() {
-        return "home";
+        return "home2";
     }
 
-    @GetMapping("/homepage")
+    @GetMapping("/main")
     String homePage() {
-        return "wizytówka/main";
+        return "main";
     }
 }

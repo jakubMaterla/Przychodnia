@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Przychodnia</title>
+    <link rel="stylesheet" th:href="@{css/employee.css}">
+    <link th:href="@{css/css/fontello.css}" rel="stylesheet">
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+</head>
+<body>
+<div>
+    <header>
+        <div id="info-bar-outside">
+            <div id="info-bar">
+
+                <div id="social-media">
+                    <a href="https://www.facebook.com/Centrum-Zdrowia-Małych-Zwierząt-234846719897681"><span class="icon-phonefacebook-rect"></span></a>
+                    <a href=""><span class="icon-phonegoogle"></span></a>
+
+                </div>
+
+                <div id="phone">
+                    <div class="phone-item">
+                        <span class="icon-phonecall"></span>&nbsp;&nbsp; +48 95 728 22 55
+                    </div>
+                    <div class="phone-item">
+                        <span class="icon-phonemail"></span>&nbsp;&nbsp; <a href="mailto:czmz@czmz.pl" class="poczta">czmz@czmz.pl</a>
+                    </div>
+                </div>
+
+                <br class="clear"/>
+
+                <div id="menu-icon">
+                    <span class="icon-menu"></span>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+
+
+    <section>
+        <div id="top-bar-outside">
+            <div id="top-bar">
+                <div id="logo">
+                    <h2><a th:href="@{/home}"><img th:src="@{/logo.png}" class="noborder" alt="CZMZ"/></a></h2>
+                </div>
+                <div id="emergency">
+                    <span class="icon-phonecall"></span>&nbsp;&nbsp; +48 95 728 22 55
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <!--========================menu=======================-->
+
+        <div id="menu-outside">
+            <div id="menu">
+                <nav><a th:href="@{/home}" class="menu-link" title="home"><span class="icon-phonehome"></span>home</a><a th:href="@{/employees}" class="menu-link-active" title="kadra"><span class="icon-phoneusers"></span>kadra</a><a class="menu-link" title="aktualności"><span class="icon-phonenewspaper"></span>aktualności</a><a href="#" class="menu-link" id="offer-menu-button" title="oferta"><span class="icon-phone"></span>oferta</a><a href="realizations.php" class="menu-link" title="cases"><span class="icon-phoneeye"></span>cases</a><a th:href="@{/patients}" class="menu-link" title="galerie"><span class="icon-phonepicture"></span>galerie</a><a class="menu-link" title="praca"><span class="icon-phoneuser-add"></span>praca</a><a class="menu-link" title="kontakt"><span class="icon-phonecall"></span>kontakt</a>
+                </nav>
+
+                <!--================ offer menu ==================-->
+                <div id="offer-menu">
+                    <nav>
+                        <a class="offer-link" title="Profilaktyka">Profilaktyka</a>
+                        <a class="offer-link" title="Diagnostyka obrazowa">Diagnostyka obrazowa</a>
+                        <a class="offer-link" title="Diagnostyka laboratoryjna">Diagnostyka laboratoryjna</a>
+                        <a class="offer-link" title="Diagnostyka i leczenie chorób wewnętrznych">Diagnostyka i leczenie chorób wewnętrznych</a>
+                        <a class="offer-link" title="Ginekologia i położnictwo">Ginekologia i położnictwo</a>
+                        <a  class="offer-link" title="Chirurgia">Chirurgia</a>
+                        <a  class="offer-link" title="Ortopedia">Ortopedia</a>
+                        <a  class="offer-link" title="Kardiologia">Kardiologia</a>
+                        <a class="offer-link" title="Onkologia">Onkologia</a>
+                        <a  class="offer-link" title="Transfuzjologia  i medycyna regeneracyjna">Transfuzjologia  i medycyna regeneracyjna</a>
+                        <a  class="offer-link" title="Hospitalizacja i leczenie stacjonarne">Hospitalizacja i leczenie stacjonarne</a>
+                        <a  class="offer-link" title="Stomatologia">Stomatologia</a>
+                        <a  class="offer-link" title="Dietetyka">Dietetyka</a>
+                        <a  class="offer-link" title="czipowanie zwierząt">czipowanie zwierząt</a>
+                        <a  class="offer-link" title="paszporty dla zwierząt">paszporty dla zwierząt</a>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+    <div class="container">
+        <div>
+            <ul class="nav nav-tabs">
+                <li role="presentation"><a th:href="@{/home}">Home</a></li>
+                <li role="presentation" class="active"><a th:href="@{/employees}">Pracownicy</a></li>
+                <li role="presentation"><a th:href="@{/patients}">Zwierzęta</a></li>
+                <li role="presentation"><a th:href="@{/medicines}">Lekarstwa</a></li>
+                <li role="presentation"><a th:href="@{/treatments}">Zabiegi</a></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Imie</td>
+                    <td>Nazwisko</td>
+                    <td>Wiek</td>
+                    <td>Pensja</td>
+                    <td>Grupa</td>
+                    <td>Stanowisko</td>
+                </tr>
+            </thead>
+            <tbody th:each="employee, iter: ${employees}">
+            <tr>
+                <td th:text="${iter.index + 1}"></td>
+                <td th:text="${employee.getName()}"></td>
+                <td th:text="${employee.getSurname()}"></td>
+                <td th:text="${employee.getAge()}"></td>
+                <td th:text="${employee.getSalary()}"></td>
+                <td th:each="group : ${employee.getGroup()}">
+                    <ul>
+                        <li th:text="${group.getName()}"></li>
+                    </ul>
+                </td>
+                <td th:each="position: ${employee.getPosition()}">
+                    <ul>
+                        <li th:text="${position.getName()}"></li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a href="/group">Dodaj nowa grupe</a>
+        <br>
+        <a href="/new-position">Dodaj nowe stanowisko</a>
+        <br>
+        <a href="/new-employee">Dodaj nowego pracownika</a>
+    </div>
+</div>
+</body>
+</html>

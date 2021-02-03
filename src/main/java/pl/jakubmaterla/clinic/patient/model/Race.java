@@ -15,6 +15,5 @@ public class Race {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @OneToMany(mappedBy = "race")
-    private List<Animal> animals;
+
 }

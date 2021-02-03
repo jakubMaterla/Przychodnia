@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import pl.jakubmaterla.clinic.patient.model.*;
 import pl.jakubmaterla.clinic.patient.services.*;
 
@@ -15,8 +16,7 @@ import java.util.Optional;
 
 @Controller
 public class PatientController {
-    private final AnimalService service;
-
+    private final PatientService service;
     private final ColorService colorService;
     private final RaceService raceService;
     private final OwnerService ownerService;
@@ -25,7 +25,7 @@ public class PatientController {
     private final TreatmentService treatmentService;
     private final MedicineService medicineService;
 
-    public PatientController(AnimalService service, ColorService colorService, RaceService raceService, OwnerService ownerService, SexService sexService, SizeService sizeService, TreatmentService treatmentService, MedicineService medicineService) {
+    public PatientController(PatientService service, ColorService colorService, RaceService raceService, OwnerService ownerService, SexService sexService, SizeService sizeService, TreatmentService treatmentService, MedicineService medicineService) {
         this.service = service;
         this.colorService = colorService;
         this.raceService = raceService;
@@ -38,27 +38,26 @@ public class PatientController {
 
     @GetMapping("/patients")
     String readAll(Model model) {
-        List<Animal> patients = service.findAll();
+        List<Patient> patients = service.findAll();
         model.addAttribute("patients", patients);
-        return "patient";
+        return "patient/patient";
     }
 
-    @GetMapping("/new-owners")
+    @GetMapping("/owners")
     String createOwner(Model model) {
         List<Owner> owners = ownerService.readAll();
         model.addAttribute("owners", owners);
         model.addAttribute("Owner", new Owner());
-        return "newOwner";
+        return "patient/owners";
     }
 
     @PostMapping("/save-owner")
     String saveOwner(@Valid Owner toSave, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
-            return "newOwner";
+            return "patient/owners";
         }
-
         ownerService.save(toSave);
-        return "redirect:/new-patient";
+        return "redirect:/owners";
     }
 
     @GetMapping("/new-patient")
@@ -71,40 +70,73 @@ public class PatientController {
         model.addAttribute("races", raceList);
         model.addAttribute("colors", colorList);
         model.addAttribute("sizes", sizeList);
-        model.addAttribute("Patient", new Animal());
-        return "newPatient";
+        model.addAttribute("Patient", new Patient());
+        return "patient/newPatient";
     }
 
     @PostMapping("/save-patient")
-    String savePatient(@Valid Animal toCreate, BindingResult bindingResult) {
+    String savePatient( @Valid Patient toCreate, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "newPatient";
+            return "patient/newPatient";
         }
         service.save(toCreate);
         return "redirect:/patients";
     }
 
-    @GetMapping("/add-patient-medicine/{id}")
+    @GetMapping("/medicines")
+    String readAllMed(Model model) {
+        List<Medicine> medicineList = medicineService.findAll();
+        model.addAttribute("medicines", medicineList);
+        model.addAttribute("Medicine", new Medicine());
+        return "patient/medicines";
+    }
+
+    @PostMapping("/save-new-med")
+    String saveNedMed(@Valid Medicine medicine, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "patient/medicines";
+        }
+        medicineService.save(medicine);
+        return "redirect:/medicines";
+    }
+
+    @GetMapping("/treatments")
+    String readAllTreat(Model model) {
+        List<Treatment> treatmentList = treatmentService.findAll();
+        model.addAttribute("treatments", treatmentList);
+        model.addAttribute("Treatment", new Treatment());
+        return "patient/treatments";
+    }
+
+    @PostMapping("/save-new-treat")
+    String saveNedTreat(@Valid Treatment toSave, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "patient/medicines";
+        }
+        treatmentService.save(toSave);
+        return "redirect:/treatments";
+    }
+   /* @GetMapping("/add-patient-med/{id}")
     String addMedicine(@PathVariable int id, Model model) {
-        Optional<Animal> patient = service.findById(id);
+        var pet = service.findById(id);
         List<Medicine> medicines = medicineService.findAll();
         model.addAttribute("medicines", medicines);
-        model.addAttribute("Patient", patient);
-        model.addAttribute("patId", patient.get().getId());
-//        model.addAttribute("Medicine", new Medicine());
-        return "addPatientMedicine";
+        model.addAttribute("Patient", pet);
+        return "patient/addPatientMedicine";
     }
 
-    @PostMapping ("/save-patient-medicine/{id}")
-    String savePetMedicine(@PathVariable int id, @Valid Medicine toSave, BindingResult bindingResult){
-
+    @PostMapping("/save-patient-med/{id}")
+    String savePetMedicine(@PathVariable int id, @Valid Patient toSave, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "addPatientMedicine";
+            return "patient/addPatientMedicine";
         }
-        medicineService.save(toSave);
-        return "redirect:/add-patient-medicine";
-    }
-
+        var pet = service.findById(id);
+        int petId = pet.get().getId();
+        toSave.setMedicine_id(petId);
+        service.save(toSave);
+        return "redirect:/patients";
+    }*/
+/*
     @GetMapping("/add-medicine/{id}")
     String addMed(@PathVariable int id, Model model) {
         List<Medicine> medicines = medicineService.findAll();
@@ -127,5 +159,5 @@ public class PatientController {
         medicineService.save(oldMedicine.get());
         int patientId = oldMedicine.get().getAnimal().getId();
         return "redirect:/add-patient-medicine/2";
-    }
+    }*/
 }

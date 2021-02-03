@@ -5,6 +5,7 @@ import pl.jakubmaterla.clinic.patient.model.Owner;
 import pl.jakubmaterla.clinic.patient.repositories.OwnerRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OwnerService {
@@ -20,5 +21,9 @@ public class OwnerService {
 
     public void save(Owner owner) {
         repository.save(owner);
+    }
+
+    public Optional<Owner> findById(int id) {
+        return repository.findById(id);
     }
 }
