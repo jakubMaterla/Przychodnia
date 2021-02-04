@@ -40,7 +40,7 @@ public class PatientController {
     String readAll(Model model) {
         List<Patient> patients = service.findAll();
         model.addAttribute("patients", patients);
-        return "patient/patient";
+        return "admin/patient/patient";
     }
 
     @GetMapping("/owners")
@@ -48,13 +48,13 @@ public class PatientController {
         List<Owner> owners = ownerService.readAll();
         model.addAttribute("owners", owners);
         model.addAttribute("Owner", new Owner());
-        return "patient/owners";
+        return "admin/patient/owners";
     }
 
     @PostMapping("/save-owner")
     String saveOwner(@Valid Owner toSave, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
-            return "patient/owners";
+            return "admin/patient/owners";
         }
         ownerService.save(toSave);
         return "redirect:/owners";
@@ -71,13 +71,13 @@ public class PatientController {
         model.addAttribute("colors", colorList);
         model.addAttribute("sizes", sizeList);
         model.addAttribute("Patient", new Patient());
-        return "patient/newPatient";
+        return "admin/patient/newPatient";
     }
 
     @PostMapping("/save-patient")
     String savePatient( @Valid Patient toCreate, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "patient/newPatient";
+            return "admin/patient/newPatient";
         }
         service.save(toCreate);
         return "redirect:/patients";
@@ -88,13 +88,13 @@ public class PatientController {
         List<Medicine> medicineList = medicineService.findAll();
         model.addAttribute("medicines", medicineList);
         model.addAttribute("Medicine", new Medicine());
-        return "patient/medicines";
+        return "admin/patient/medicines";
     }
 
     @PostMapping("/save-new-med")
     String saveNedMed(@Valid Medicine medicine, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
-            return "patient/medicines";
+            return "admin/patient/medicines";
         }
         medicineService.save(medicine);
         return "redirect:/medicines";
@@ -105,13 +105,13 @@ public class PatientController {
         List<Treatment> treatmentList = treatmentService.findAll();
         model.addAttribute("treatments", treatmentList);
         model.addAttribute("Treatment", new Treatment());
-        return "patient/treatments";
+        return "admin/patient/treatments";
     }
 
     @PostMapping("/save-new-treat")
     String saveNedTreat(@Valid Treatment toSave, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
-            return "patient/medicines";
+            return "admin/patient/medicines";
         }
         treatmentService.save(toSave);
         return "redirect:/treatments";

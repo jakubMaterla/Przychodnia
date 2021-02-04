@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Przychodnia</title>
-    <link rel="stylesheet" th:href="@{css/employee.css}">
-    <link th:href="@{css/css/fontello.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{css/team.css}">
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <link th:href="@{css/css/fontello.css}" rel="stylesheet">
 </head>
 <body>
 <div>
-    <header>
+    <header style="background: linear-gradient(#3E5568 0%, #4C6376 20%, #4C6376 80%, #3E5568 100%);">
         <div id="info-bar-outside">
             <div id="info-bar">
 
@@ -44,7 +44,7 @@
         <div id="top-bar-outside">
             <div id="top-bar">
                 <div id="logo">
-                    <h2><a th:href="@{/home}"><img th:src="@{/logo.png}" class="noborder" alt="CZMZ"/></a></h2>
+                    <h2><a th:href="@{/home}"><img th:src="@{images/logo.png}" class="noborder" alt="CZMZ"/></a></h2>
                 </div>
                 <div id="emergency">
                     <span class="icon-phonecall"></span>&nbsp;&nbsp; +48 95 728 22 55
@@ -55,7 +55,7 @@
 
         <!--========================menu=======================-->
 
-        <div id="menu-outside">
+        <div id="menu-outside" style="background: linear-gradient(#3E5568 0%, #4C6376 20%, #4C6376 80%, #3E5568 100%);">
             <div id="menu">
                 <nav><a th:href="@{/home}" class="menu-link" title="home"><span class="icon-phonehome"></span>home</a><a th:href="@{/employees}" class="menu-link-active" title="kadra"><span class="icon-phoneusers"></span>kadra</a><a class="menu-link" title="aktualności"><span class="icon-phonenewspaper"></span>aktualności</a><a href="#" class="menu-link" id="offer-menu-button" title="oferta"><span class="icon-phone"></span>oferta</a><a href="realizations.php" class="menu-link" title="cases"><span class="icon-phoneeye"></span>cases</a><a th:href="@{/patients}" class="menu-link" title="galerie"><span class="icon-phonepicture"></span>galerie</a><a class="menu-link" title="praca"><span class="icon-phoneuser-add"></span>praca</a><a class="menu-link" title="kontakt"><span class="icon-phonecall"></span>kontakt</a>
                 </nav>
@@ -84,59 +84,65 @@
             </div>
         </div>
     </section>
-</div>
-    <div class="container">
-        <div>
-            <ul class="nav nav-tabs">
-                <li role="presentation"><a th:href="@{/home}">Home</a></li>
-                <li role="presentation" class="active"><a th:href="@{/employees}">Pracownicy</a></li>
-                <li role="presentation"><a th:href="@{/patients}">Zwierzęta</a></li>
-                <li role="presentation"><a th:href="@{/medicines}">Lekarstwa</a></li>
-                <li role="presentation"><a th:href="@{/treatments}">Zabiegi</a></li>
-            </ul>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div style="background: linear-gradient(#3E5568 0%, #4C6376 20%, #4C6376 80%, #3E5568 100%);">
+        <div id="footer">
+
+            <div class="container-3" id="foot1">
+                <h3 style="color: #FFFFFF; font-size: 25px; margin-top: 0; margin-bottom: 20px">Centrum Zdrowia Małych Zwierząt</h3><br/>
+
+                <div style="float: left;">
+                    <span class="icon-phonelocation" style="font-size: 2.0em;"></span>
+                </div>
+
+                <div style="float: left; margin-left: 0.5em; margin-bottom: 1em; font-size: small">
+                    ul. Myśliborska 38<br/>66-400 Gorzów Wielkopolski<br/>
+
+                </div>
+                <br class="clear"/>
+
+            </div>
+
+            <div class="container-3" style="font-size: small; vertical-align: top">
+                <span class="icon-phonecall"></span>&nbsp;&nbsp; +48 95 728 22 55<br/>
+                <span class="icon-phonemobile"></span>&nbsp;&nbsp; +48 694 00 36 96<br/>
+                <span class="icon-phonemail"></span>&nbsp;&nbsp; <a href="mailto:czmz@czmz.pl" style="color: #FFFFFF;">czmz@czmz.pl</a>
+                <br/><br/>
+                <span class="icon-phoneclock"></span>&nbsp;&nbsp; godziny otwarcia:<br/><br/>
+                poniedziałek – piątek 8:00 – 21:00<br/>
+                sobota 10:00 – 18:00<br/>
+                niedziela i święta 11:00 – 14:00
+            </div>
+
+            <div class="container-3">
+                <a href="/home" class="footer-link" title="home">home &nbsp; <span class="icon-phoneright-circled2"></span></a>
+                <a href="/" class="footer-link" title="kadra">kadra &nbsp; <span class="icon-phoneright-circled2"></span></a>
+                <a href="#" class="footer-link" title="aktualności">aktualności &nbsp; <span class="icon-phoneright-circled2"></span></a>
+                <a href="#" class="footer-link" title="cases">cases &nbsp; <span class="icon-phoneright-circled2"></span></a>
+                <a href="#" class="footer-link" title="galerie">galerie &nbsp; <span class="icon-phoneright-circled2"></span></a>
+                <a href="#" class="footer-link" title="kontakt">kontakt &nbsp; <span class="icon-phoneright-circled2"></span></a>
+            </div>
+
+            <br class="clear"/>
+
         </div>
     </div>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <td>#</td>
-                    <td>Imie</td>
-                    <td>Nazwisko</td>
-                    <td>Wiek</td>
-                    <td>Pensja</td>
-                    <td>Grupa</td>
-                    <td>Stanowisko</td>
-                </tr>
-            </thead>
-            <tbody th:each="employee, iter: ${employees}">
-            <tr>
-                <td th:text="${iter.index + 1}"></td>
-                <td th:text="${employee.getName()}"></td>
-                <td th:text="${employee.getSurname()}"></td>
-                <td th:text="${employee.getAge()}"></td>
-                <td th:text="${employee.getSalary()}"></td>
-                <td th:each="group : ${employee.getGroup()}">
-                    <ul>
-                        <li th:text="${group.getName()}"></li>
-                    </ul>
-                </td>
-                <td th:each="position: ${employee.getPosition()}">
-                    <ul>
-                        <li th:text="${position.getName()}"></li>
-                    </ul>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+
+    <div style="background: linear-gradient(#1D3448 0%, #274056 20%, #274056 80%, #1D3448 100%);">
+        <div id="copyright">
+            CZMZ &copy; 2017-2021. All rights reserved.<br/>
+            projekt i wykonanie: <a href="http://www.webkowscy.eu" rel="nofollow" style="color: #FFFFFF;">Studio Projektów Internetowych</a>
+        </div>
     </div>
-    <div>
-        <a href="/group">Dodaj nowa grupe</a>
-        <br>
-        <a href="/new-position">Dodaj nowe stanowisko</a>
-        <br>
-        <a href="/new-employee">Dodaj nowego pracownika</a>
-    </div>
+
+    <a href="#" class="scroll-to-top"><span class="icon-phoneup-circled2"></span></a>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&amp;subset=latin-ext" rel="stylesheet"/>
+
 </div>
+<script type="text/javascript" th:src="@{/js/team.js}"></script>
 </body>
 </html>

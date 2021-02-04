@@ -17,11 +17,7 @@ public class Employee {
     private String name;
     private String surname;
     private int age;
-    private int salary;
-    private int bonus;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "group_id")
-    private Group group;
+    private String filename;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "position_id")
     private Position position;
@@ -29,11 +25,10 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String name, String surname, int age, int salary, int bonus) {
+    public Employee(String name, String surname, int age) {
         this.name = name;
         this.surname = surname;
         this.age = age;
-        this.salary = salary;
-        this.bonus = bonus;
+
     }
 }
