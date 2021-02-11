@@ -40,7 +40,7 @@ public class PatientController {
     String readAll(Model model) {
         List<Patient> patients = service.findAll();
         model.addAttribute("patients", patients);
-        return "admin/patient/patient";
+        return "admin/patient/patients";
     }
 
     @GetMapping("/owners")
@@ -60,7 +60,7 @@ public class PatientController {
         return "redirect:/owners";
     }
 
-    @GetMapping("/new-patient")
+    @GetMapping("/patients/addNew")
     String newPatient(Model model) {
         List<Color> colorList = colorService.readAll();
         List<Race> raceList = raceService.readAll();
@@ -71,7 +71,7 @@ public class PatientController {
         model.addAttribute("colors", colorList);
         model.addAttribute("sizes", sizeList);
         model.addAttribute("Patient", new Patient());
-        return "admin/patient/newPatient";
+        return "redirect:/patients";
     }
 
     @PostMapping("/save-patient")

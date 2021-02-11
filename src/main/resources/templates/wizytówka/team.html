@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Przychodnia</title>
-    <link rel="stylesheet" th:href="@{css/team.css}">
+    <link rel="stylesheet" th:href="@{../../static/css/team.css}">
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
-    <link th:href="@{css/css/fontello.css}" rel="stylesheet">
+    <link th:href="@{../../static/css/css/fontello.css}" rel="stylesheet">
 </head>
 <body>
 <div>
@@ -44,7 +44,7 @@
         <div id="top-bar-outside">
             <div id="top-bar">
                 <div id="logo">
-                    <h2><a th:href="@{/home}"><img th:src="@{images/logo.png}" class="noborder" alt="CZMZ"/></a></h2>
+                    <h2><a th:href="@{/home}"><img th:src="@{../../static/img/logo.png}" class="noborder" alt="CZMZ"/></a></h2>
                 </div>
                 <div id="emergency">
                     <span class="icon-phonecall"></span>&nbsp;&nbsp; +48 95 728 22 55
@@ -143,6 +143,6 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&amp;subset=latin-ext" rel="stylesheet"/>
 
 </div>
-<script type="text/javascript" th:src="@{/js/team.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/team.js}"></script>
 </body>
 </html>

@@ -16,11 +16,13 @@ import pl.jakubmaterla.clinic.employee.services.EmployeeService;
 import pl.jakubmaterla.clinic.employee.services.PositionService;
 
 import javax.validation.Valid;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.security.Principal;
+import java.util.*;
 
 @Controller
 public class EmployeeController {
@@ -83,21 +85,22 @@ public class EmployeeController {
         return "admin/employee/newEmployee";
     }
 
-    @RequestMapping(value = "/save-employee", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String saveNewEmployee(@Valid Employee employee, @RequestPart(value = "filename") MultipartFile file, BindingResult bindingResult) {
-        logger.info(employee.getFilename());
+    @RequestMapping(value = "/save-employee", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String saveNewEmployee(@Valid Employee employee, @RequestParam("file") MultipartFile file, BindingResult bindingResult) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        logger.info(fileName.toUpperCase(Locale.ROOT));
         if (bindingResult.hasErrors()) {
             return "admin/employee/newEmployee";
         }
         else {
+            String baseDirectory = "C:\\Users\\lukasz\\IdeaProjects\\Moje Projekty\\clinic\\src\\main\\resources\\static\\images\\" ;
+            file.transferTo(new File(baseDirectory + fileName ));
+            employee.setFilename(file.getOriginalFilename());
             service.save(employee);
             return "redirect:/employees";
         }
     }
 
-    @ResponseBody
+    /*@ResponseBody
     @RequestMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     ResponseEntity<?> readEmployees(){
         return ResponseEntity.ok(service.readAll());
@@ -110,13 +113,8 @@ public class EmployeeController {
     ResponseEntity<?> readEmployee(@RequestBody @Valid Employee toCreate) {
         Employee result = service.save(toCreate);
         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
-    }
-
-
-    /*@GetMapping("/employee")
-    ResponseEntity<List<Employee>> readAll(){
-        return ResponseEntity.ok(service.readAll());
     }*/
+
 
     /*@PostMapping("/employee")
     ResponseEntity<?> createEmployee(@RequestBody @Valid Group toCreate){

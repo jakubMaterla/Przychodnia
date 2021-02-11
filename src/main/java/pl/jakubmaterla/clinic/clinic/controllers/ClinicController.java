@@ -18,4 +18,9 @@ public class ClinicController {
 
     @GetMapping("homeadmin")
     String homeAdmin(){ return "admin/employee/employees";}
+
+    @GetMapping("/index")
+    String index() {
+        return "admin/index";
+    }
 }
