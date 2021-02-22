@@ -1,12 +1,10 @@
 package pl.jakubmaterla.clinic.patient.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.jakubmaterla.clinic.patient.model.*;
 import pl.jakubmaterla.clinic.patient.services.*;
 
@@ -37,31 +35,9 @@ public class PatientController {
     }
 
     @GetMapping("/patients")
-    String readAll(Model model) {
+    String newPatient(Model model) {
         List<Patient> patients = service.findAll();
         model.addAttribute("patients", patients);
-        return "admin/patient/patients";
-    }
-
-    @GetMapping("/owners")
-    String createOwner(Model model) {
-        List<Owner> owners = ownerService.readAll();
-        model.addAttribute("owners", owners);
-        model.addAttribute("Owner", new Owner());
-        return "admin/patient/owners";
-    }
-
-    @PostMapping("/save-owner")
-    String saveOwner(@Valid Owner toSave, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()){
-            return "admin/patient/owners";
-        }
-        ownerService.save(toSave);
-        return "redirect:/owners";
-    }
-
-    @GetMapping("/patients/addNew")
-    String newPatient(Model model) {
         List<Color> colorList = colorService.readAll();
         List<Race> raceList = raceService.readAll();
         List<Sex> sexList = sexService.readAll();
@@ -70,20 +46,35 @@ public class PatientController {
         model.addAttribute("races", raceList);
         model.addAttribute("colors", colorList);
         model.addAttribute("sizes", sizeList);
-        model.addAttribute("Patient", new Patient());
-        return "redirect:/patients";
+        return "admin/patient/patients";
     }
 
-    @PostMapping("/save-patient")
-    String savePatient( @Valid Patient toCreate, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "admin/patient/newPatient";
-        }
+    @PostMapping("/patients/addNew")
+    String savePatient(Patient toCreate) {
         service.save(toCreate);
         return "redirect:/patients";
     }
 
-    @GetMapping("/medicines")
+    @GetMapping("/patients/findById")
+    @ResponseBody
+    Optional<Patient> findById(Integer id) {
+        return service.findById(id);
+    }
+
+    @RequestMapping(value = "/patients/update", method = {RequestMethod.PUT, RequestMethod.GET})
+    String update(Patient patient){
+        service.save(patient);
+        return "redirect:/patients";
+    }
+
+    @RequestMapping(value = "patients/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
+    String delete(Integer id) {
+        service.deleteById(id);
+        return "redirect:/patients";
+    }
+
+
+    /*@GetMapping("/medicines")
     String readAllMed(Model model) {
         List<Medicine> medicineList = medicineService.findAll();
         model.addAttribute("medicines", medicineList);
@@ -115,7 +106,7 @@ public class PatientController {
         }
         treatmentService.save(toSave);
         return "redirect:/treatments";
-    }
+    }*/
    /* @GetMapping("/add-patient-med/{id}")
     String addMedicine(@PathVariable int id, Model model) {
         var pet = service.findById(id);

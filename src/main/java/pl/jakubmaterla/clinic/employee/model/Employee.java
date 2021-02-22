@@ -1,5 +1,8 @@
 package pl.jakubmaterla.clinic.employee.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "employees")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +22,16 @@ public class Employee {
     private String name;
     private String surname;
     private int age;
+    private String description;
     private String filename;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "position_id")
+    private String code;
+    private String mobile;
+    private String pesel;
+
+    @ManyToOne
+    @JoinColumn(name = "positionid", insertable = false, updatable = false)
     private Position position;
+    private Integer positionid;
 
     public Employee() {
     }
@@ -30,6 +40,5 @@ public class Employee {
         this.name = name;
         this.surname = surname;
         this.age = age;
-
     }
 }

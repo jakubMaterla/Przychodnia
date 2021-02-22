@@ -16,12 +16,8 @@ import pl.jakubmaterla.clinic.employee.services.EmployeeService;
 import pl.jakubmaterla.clinic.employee.services.PositionService;
 
 import javax.validation.Valid;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.security.Principal;
 import java.util.*;
 
 @Controller
@@ -35,57 +31,50 @@ public class EmployeeController {
         this.positionService = positionService;
     }
 
-    @RequestMapping(value = "/team", produces = MediaType.TEXT_HTML_VALUE,method = RequestMethod.GET)
-    String readAll(Model model) {
-        List<Employee> employees = service.readAll();
-        model.addAttribute("employees", employees);
-        return "wizytówka/team";
-    }
-    @RequestMapping(value = "/employees", produces = MediaType.TEXT_HTML_VALUE,method = RequestMethod.GET)
+    @GetMapping("/employees")
     String readAllEmployees(Model model) {
         List<Employee> employees = service.readAll();
         model.addAttribute("employees", employees);
+        model.addAttribute("positions", positionService.findAll());
         return "admin/employee/employees";
     }
 
-    /*@RequestMapping(value = "/employee/{id}", produces = MediaType.TEXT_HTML_VALUE, method = RequestMethod.POST)
-    String readEmployeeById(@PathVariable int id, Model model){
-        Optional<Employee> empl = service.findById(id);
-        model.addAttribute("employee", empl);
-        return "employee/employee";
-    }*/
-
-
-
-    @RequestMapping(value = "/new-position", produces = MediaType.TEXT_HTML_VALUE, method = RequestMethod.GET)
-    String createPosition(Model model) {
-        List<Position> positionList = positionService.findAll();
-        model.addAttribute("positions", positionList);
-        model.addAttribute("Position", new Position());
-        return "admin/employee/newPosition";
-    }
-
-    @RequestMapping(value = "/save-position", produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, method = RequestMethod.POST)
-    public String saveNewPosition(@Valid Position position, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return "admin/employee/newPosition";
-        }
-        else {
-            positionService.save(position);
+    @RequestMapping(value = "/employees/addNew", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    String createEmployee(@Valid Employee employee, @RequestParam("file") MultipartFile file, BindingResult bindingResult) throws IOException {
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        if (bindingResult.hasErrors()){
             return "redirect:/employees";
         }
+        String baseDirectory = "C:\\Users\\lukasz\\IdeaProjects\\Moje Projekty\\clinic\\src\\main\\resources\\static\\img\\" ;
+        file.transferTo(new File(baseDirectory + fileName ));
+        employee.setFilename(file.getOriginalFilename());
+        service.save(employee);
+        return "redirect:/employees";
     }
 
-    @RequestMapping(value = "/new-employee", produces = MediaType.TEXT_HTML_VALUE, method = RequestMethod.GET)
-    String createEmployee(Model model) {
-        model.addAttribute("Employee", new Employee());
-        List<Position> positionList = positionService.findAll();
-        model.addAttribute("positions", positionList);
-        return "admin/employee/newEmployee";
+    @GetMapping("/employees/findById/{id}")
+    @ResponseBody
+    public Optional<Employee> findById(@PathVariable Integer id){
+        return service.findById(id);
     }
 
-    @RequestMapping(value = "/save-employee", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @RequestMapping(value = "/employees/update", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String update( Employee employee) {
+        /*String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String baseDirectory = "C:\\Users\\lukasz\\IdeaProjects\\Moje Projekty\\clinic\\src\\main\\resources\\static\\img\\" ;
+        file.transferTo(new File(baseDirectory + fileName ));
+        employee.setFilename(file.getOriginalFilename());*/
+        service.save(employee);
+        return "redirect:/employees";
+    }
+
+    @RequestMapping(value = "/employees/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
+    public String delete(Integer id){
+        service.deleteById(id);
+        return "redirect:/employees";
+    }
+
+    /*@RequestMapping(value = "/save-employee", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String saveNewEmployee(@Valid Employee employee, @RequestParam("file") MultipartFile file, BindingResult bindingResult) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         if (bindingResult.hasErrors()) {
@@ -98,7 +87,7 @@ public class EmployeeController {
             service.save(employee);
             return "redirect:/employees";
         }
-    }
+    }*/
 
     /*@ResponseBody
     @RequestMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)

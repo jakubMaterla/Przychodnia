@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Przychodnia</title>
+    <link rel="stylesheet" th:href="@{css/app.css}">
+    <link rel="stylesheet" th:href="@{css/team.css}">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link th:href="@{css/css/fontello.css}" rel="stylesheet">
+</head>
+<body>
+<div>
+    <header style="background: linear-gradient(#3E5568 0%, #4C6376 20%, #4C6376 80%, #3E5568 100%);">
+        <div id="info-bar-outside">
+            <div id="info-bar">
+
+                <div id="social-media">
+                    <a href="https://www.facebook.com/Centrum-Zdrowia-Małych-Zwierząt-234846719897681"><span class="icon-phonefacebook-rect"></span></a>
+                    <a href=""><span class="icon-phonegoogle"></span></a>
+
+                </div>
+
+                <div id="phone">
+                    <div class="phone-item">
+                        <span class="icon-phonecall"></span>&nbsp;&nbsp; +48 95 728 22 55
+                    </div>
+                    <div class="phone-item">
+                        <span class="icon-phonemail"></span>&nbsp;&nbsp; <a href="mailto:czmz@czmz.pl" class="poczta">czmz@czmz.pl</a>
+                    </div>
+                </div>
+
+                <br class="clear"/>
+
+                <div id="menu-icon">
+                    <span class="icon-menu"></span>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+
+
+    <section>
+        <div id="top-bar-outside">
+            <div id="top-bar">
+                <div id="logo">
+                    <h2><a th:href="@{/home}"><img th:src="@{img/logo.png}" class="noborder" alt="CZMZ"/></a></h2>
+                </div>
+                <div id="emergency">
+                    <span class="icon-phonecall"></span>&nbsp;&nbsp; +48 95 728 22 55
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <!--========================menu=======================-->
+
+        <div id="menu-outside">
+            <div id="menu">
+                <nav><a th:href="@{/home}" class="menu-link" title="home"><span class="icon-phonehome"></span>home</a><a th:href="@{/team}" class="menu-link-active" title="kadra"><span class="icon-phoneusers"></span>kadra</a><a th:href="@{/news}" class="menu-link" title="aktualności"><span class="icon-phonenewspaper"></span>aktualności</a><a href="#" class="menu-link" id="offer-menu-button" title="oferta"><span class="icon-phone"></span>oferta</a><a th:href="@{/cases.html}" class="menu-link" title="cases"><span class="icon-phoneeye"></span>cases</a><a th:href="@{/index}" class="menu-link" title="galerie"><span class="icon-phonepicture"></span>galerie</a><a th:href="@{/job}" class="menu-link" title="praca"><span class="icon-phoneuser-add"></span>praca</a><a th:href="@{/contact}" class="menu-link" title="kontakt"><span class="icon-phonecall"></span>kontakt</a>
+                </nav>
+
+                <!--================ offer menu ==================-->
+                <div id="offer-menu">
+                    <nav>
+                        <a class="offer-link" title="Profilaktyka">Profilaktyka</a>
+                        <a class="offer-link" title="Diagnostyka obrazowa">Diagnostyka obrazowa</a>
+                        <a class="offer-link" title="Diagnostyka laboratoryjna">Diagnostyka laboratoryjna</a>
+                        <a class="offer-link" title="Diagnostyka i leczenie chorób wewnętrznych">Diagnostyka i leczenie chorób wewnętrznych</a>
+                        <a class="offer-link" title="Ginekologia i położnictwo">Ginekologia i położnictwo</a>
+                        <a  class="offer-link" title="Chirurgia">Chirurgia</a>
+                        <a  class="offer-link" title="Ortopedia">Ortopedia</a>
+                        <a  class="offer-link" title="Kardiologia">Kardiologia</a>
+                        <a class="offer-link" title="Onkologia">Onkologia</a>
+                        <a  class="offer-link" title="Transfuzjologia  i medycyna regeneracyjna">Transfuzjologia  i medycyna regeneracyjna</a>
+                        <a  class="offer-link" title="Hospitalizacja i leczenie stacjonarne">Hospitalizacja i leczenie stacjonarne</a>
+                        <a  class="offer-link" title="Stomatologia">Stomatologia</a>
+                        <a  class="offer-link" title="Dietetyka">Dietetyka</a>
+                        <a  class="offer-link" title="czipowanie zwierząt">czipowanie zwierząt</a>
+                        <a  class="offer-link" title="paszporty dla zwierząt">paszporty dla zwierząt</a>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!--start content-->
+<div class="section" th:each="employee: ${employees}">
+    <div class="employee">
+       <h2 th:text="${employee.name} + ' ' + ${employee.surname}"></h2>
+        <h3 th:text="${{employee.position?.getName()}}"></h3>
+            <div class="img_desc" style="height: 279px;">
+                <a th:href="@{'/team/one-of-team/' + ${employee.getId()}}" class="more" th:title="${employee.name} + ' ' + ${employee.surname}">
+                    <img th:src="'img/'+ ${employee.getFilename()}" alt="Pracownik"/>
+                </a>
+                <p th:text="${employee.getDescription()}"><a class="more" th:title="'więcej... - ' + ${employee.name} + ' ' + ${employee.surname} ">więcej>></a></p>
+            </div>
+
+    </div>
+</div>
+<!--end content-->
+<div style="background: linear-gradient(#3E5568 0%, #4C6376 20%, #4C6376 80%, #3E5568 100%);">
+    <div id="footer">
+
+        <div class="container-3" id="foot1">
+            <h3 style="color: #FFFFFF; font-size: 25px; margin-top: 0; margin-bottom: 20px">Centrum Zdrowia Małych Zwierząt</h3><br/>
+
+            <div style="float: left;">
+                <span class="icon-phonelocation" style="font-size: 2.0em;"></span>
+            </div>
+
+            <div style="float: left; margin-left: 0.5em; margin-bottom: 1em; font-size: small">
+                ul. Myśliborska 38<br/>66-400 Gorzów Wielkopolski<br/>
+
+            </div>
+            <br class="clear"/>
+
+        </div>
+
+        <div class="container-3" style="font-size: small; vertical-align: top">
+            <span class="icon-phonecall"></span>&nbsp;&nbsp; +48 95 728 22 55<br/>
+            <span class="icon-phonemobile"></span>&nbsp;&nbsp; +48 694 00 36 96<br/>
+            <span class="icon-phonemail"></span>&nbsp;&nbsp; <a href="mailto:czmz@czmz.pl" style="color: #FFFFFF;">czmz@czmz.pl</a>
+            <br/><br/>
+            <span class="icon-phoneclock"></span>&nbsp;&nbsp; godziny otwarcia:<br/><br/>
+            poniedziałek – piątek 8:00 – 21:00<br/>
+            sobota 10:00 – 18:00<br/>
+            niedziela i święta 11:00 – 14:00
+        </div>
+
+        <div class="container-3">
+            <a th:href="@{/home}" class="footer-link" title="home">home &nbsp; <span class="icon-phoneright-circled2"></span></a>
+            <a th:href="@{/team}" class="footer-link" title="kadra">kadra &nbsp; <span class="icon-phoneright-circled2"></span></a>
+            <a th:href="@{/news}" class="footer-link" title="aktualności">aktualności &nbsp; <span class="icon-phoneright-circled2"></span></a>
+            <a th:href="@{/cases}" class="footer-link" title="cases">cases &nbsp; <span class="icon-phoneright-circled2"></span></a>
+            <a th:href="@{/index}" class="footer-link" title="galerie">galerie &nbsp; <span class="icon-phoneright-circled2"></span></a>
+            <a th:href="@{/contact}" class="footer-link" title="kontakt">kontakt &nbsp; <span class="icon-phoneright-circled2"></span></a>
+        </div>
+
+        <br class="clear"/>
+
+    </div>
+</div>
+
+<div style="background: linear-gradient(#1D3448 0%, #274056 20%, #274056 80%, #1D3448 100%);">
+    <div id="copyright">
+        CZMZ &copy; 2017-2021. All rights reserved.<br/>
+        projekt i wykonanie: <a href="http://www.webkowscy.eu" rel="nofollow" style="color: #FFFFFF; text-decoration: none">Studio Projektów Internetowych</a>
+    </div>
+</div>
+
+<a href="#" class="scroll-to-top"><span class="icon-phoneup-circled2"></span></a>
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&amp;subset=latin-ext" rel="stylesheet"/>
+
+
+<script type="text/javascript" th:src="@{/js/app.js}"></script>
+</body>
+</html>

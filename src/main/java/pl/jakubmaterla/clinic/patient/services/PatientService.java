@@ -15,7 +15,6 @@ public class PatientService {
         this.repository = repository;
     }
 
-
     public List<Patient> findAll() {
         return repository.findAll();
     }
@@ -26,5 +25,9 @@ public class PatientService {
 
     public Optional<Patient> findById(int id) {
         return repository.findById(id);
+    }
+
+    public void deleteById(int id) {
+        repository.deleteById(id);
     }
 }
