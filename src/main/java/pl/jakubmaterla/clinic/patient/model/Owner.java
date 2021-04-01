@@ -17,7 +17,8 @@ public class Owner {
     private String name;
     private String surname;
     private int age;
-    /*@OneToOne
-    @JoinColumn(name = "patient_id")
-    private Patient patient;*/
+    @OneToOne
+    @JoinColumn(name = "patientid", insertable = false, updatable = false)
+    private Patient patient;
+    private Integer patientid;
 }

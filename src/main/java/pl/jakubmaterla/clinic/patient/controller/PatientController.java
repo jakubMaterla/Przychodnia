@@ -55,9 +55,9 @@ public class PatientController {
         return "redirect:/patients";
     }
 
-    @GetMapping("/patients/findById")
+    @GetMapping("/patients/findById/{id}")
     @ResponseBody
-    Optional<Patient> findById(Integer id) {
+    Optional<Patient> findById(@PathVariable Integer id) {
         return service.findById(id);
     }
 
@@ -67,8 +67,8 @@ public class PatientController {
         return "redirect:/patients";
     }
 
-    @RequestMapping(value = "patients/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
-    String delete(Integer id) {
+    @RequestMapping(value = "patients/delete/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
+    String delete(@PathVariable Integer id) {
         service.deleteById(id);
         return "redirect:/patients";
     }

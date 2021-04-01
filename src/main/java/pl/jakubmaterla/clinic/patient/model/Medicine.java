@@ -16,9 +16,9 @@ public class Medicine {
     private int id;
     private String unicode;
     private String name;
-    private String description;
 
-  /*  @OneToOne
-    @JoinColumn(name = "medicine_id")
-    private Patient patient;*/
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "medicineid")
+    private List<Patient> patient;
 }

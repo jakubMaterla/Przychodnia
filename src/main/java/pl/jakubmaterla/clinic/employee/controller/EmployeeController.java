@@ -2,6 +2,7 @@ package pl.jakubmaterla.clinic.employee.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -73,6 +74,7 @@ public class EmployeeController {
         service.deleteById(id);
         return "redirect:/employees";
     }
+
 
     /*@RequestMapping(value = "/save-employee", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String saveNewEmployee(@Valid Employee employee, @RequestParam("file") MultipartFile file, BindingResult bindingResult) throws IOException {

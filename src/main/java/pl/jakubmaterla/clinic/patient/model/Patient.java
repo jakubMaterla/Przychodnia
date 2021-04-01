@@ -19,9 +19,9 @@ public class Patient {
     private int age;
     private double weight;
     private String birthDate;
-    //private int medicine_id;
-    /*@OneToOne(cascade = CascadeType.ALL)
-    private Owner owner;*/
+    private String code;
+    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
+    private Owner owner;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "race_id")
     private Race race;
@@ -32,8 +32,8 @@ public class Patient {
     private Sex sex;
     @OneToOne(cascade = CascadeType.ALL)
     private Size size;
-    /*@OneToMany(mappedBy = "patient")
-    private List<Treatment> treatments;*/
+    private Integer treatmentid;
+    private Integer medicineid;
 
 
     public Patient() {

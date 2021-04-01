@@ -26,4 +26,8 @@ public class MedicineService {
     public Optional<Medicine> findById(int Id) {
         return repository.findById(Id);
     }
+
+    public void deleteById(int id) {
+        repository.deleteById(id);
+    }
 }

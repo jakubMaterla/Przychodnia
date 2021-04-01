@@ -23,4 +23,12 @@ public class Position {
     @OneToMany(mappedBy = "position")
     private List<Employee> employees;
 
+    public Position() {
+    }
+
+    public Position(String name, String code) {
+
+        this.name = name;
+        this.code = code;
+    }
 }
